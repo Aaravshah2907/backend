@@ -1,22 +1,39 @@
 import { config } from 'dotenv';
 config();
 import { version } from './server/utils/config';
-//https://nitro.unjs.io/config
+
+// https://nitro.unjs.io/config
 export default defineNitroConfig({
   srcDir: 'server',
+  // Required for Cloudflare Workers/Pages
+  preset: 'cloudflare-module',
   compatibilityDate: '2025-03-05',
+  
+  // Cloudflare-specific settings
+  cloudflare: {
+    // Enables Node.js built-in APIs (required for many Prisma drivers)
+    nodeCompat: true, 
+  },
+
   experimental: {
     asyncContext: true,
     tasks: true,
+    // Helps with bundling WASM files used by Prisma's drivers
+    wasm: true, 
   },
+
+  // Ensures Nitro doesn't try to load Prisma as an external file
+  alias: {
+    // If your schema output is "../generated/client", ensure the alias matches
+    "../../generated/client": "./generated/client"
+  },
+
   scheduledTasks: {
-    // Daily cron jobs (midnight)
     '0 0 * * *': ['jobs:clear-metrics:daily'],
-    // Weekly cron jobs (Sunday midnight)
     '0 0 * * 0': ['jobs:clear-metrics:weekly'],
-    // Monthly cron jobs (1st of month at midnight)
     '0 0 1 * *': ['jobs:clear-metrics:monthly']
   },
+
   runtimeConfig: {
     public: {
       meta: {

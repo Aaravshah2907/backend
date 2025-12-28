@@ -18,11 +18,14 @@
     "prisma": "^7.0.1"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@prisma/adapter-neon": "^7.2.0",
     "@prisma/adapter-pg": "^7.0.1",
     "@prisma/client": "^7.0.1",
     "cheerio": "^1.0.0",
     "dotenv": "^16.4.7",
     "jsonwebtoken": "^9.0.2",
+    "magicast": "^0.3.5",
     "prom-client": "^15.1.3",
     "tmdb-ts": "^2.0.1",
     "trakt.tv": "^8.2.0",
