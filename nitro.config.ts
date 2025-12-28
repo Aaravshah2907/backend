@@ -17,11 +17,6 @@ export default defineNitroConfig({
     wasm: true, 
   },
 
-  // FIXED ALIAS: Map a unique string to the generated folder
-  alias: {
-    "@prisma/client": "./node_modules/.prisma/client/index.js"
-  },
-
   // Simplify auto-imports to avoid "Duplicated imports" warnings
   imports: {
     dirs: ['./utils']
