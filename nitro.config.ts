@@ -9,7 +9,7 @@ export default defineNitroConfig({
   compatibilityDate: '2025-03-05',
   
   cloudflare: {
-    pages: true,
+    pages: { defaultRoutes: true },
     edgeConfig: true,
     nodeCompat: true, 
   },
