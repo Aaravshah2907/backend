@@ -2,7 +2,6 @@ import { config } from 'dotenv';
 config();
 import { version } from './server/utils/config';
 
-// https://nitro.unjs.io/config
 export default defineNitroConfig({
   srcDir: 'server',
   preset: 'cloudflare-module',
@@ -18,20 +17,14 @@ export default defineNitroConfig({
     wasm: true, 
   },
 
-  // FIX: Explicitly tell Nitro how to find 'prisma' for auto-imports
-  imports: {
-    dirs: ['./utils'],
-    presets: [
-      {
-        from: '~~/server/utils/prisma', // '~~' points to the project root
-        imports: ['prisma']
-      }
-    ]
+  // FIXED ALIAS: Map a unique string to the generated folder
+  alias: {
+    "#prisma": "./generated/client"
   },
 
-  alias: {
-    // Standardizes the path for the bundler
-    "~~/generated/client": "./generated/client"
+  // Simplify auto-imports to avoid "Duplicated imports" warnings
+  imports: {
+    dirs: ['./utils/**']
   },
 
   scheduledTasks: {
