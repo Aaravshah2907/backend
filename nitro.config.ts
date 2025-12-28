@@ -17,7 +17,7 @@ export default defineNitroConfig({
   // KEY PRISMA + CLOUDFLARE FIX
   noExternals: false,
   externals: {
-    noExternal: [/^@prisma\/client/, /^@prisma\/engines/],
+    noExternal: [/^@prisma\/client/, /^@prisma\/engines/, /^prom-client/],
     external: [/\.prisma\/client/, /\.prisma\/client\/default/]
   },
 
