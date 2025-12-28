@@ -1,7 +1,8 @@
 generator client {
   provider = "prisma-client"
-  output   = "./node_modules/.prisma/client" //TempFix
+  output   = "../generated/prisma-client" //TempFix
   engineType = "binary"
+  previewFeatures = ["prisma-client-js"]
 }
 
 datasource db {

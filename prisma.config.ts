@@ -1,8 +1,12 @@
-import 'dotenv/config';
-import { defineConfig, env } from 'prisma/config';
+import type { Config } from '@prisma/generator-helper'
 
-export default defineConfig({
-  datasource: {
-    url: env('DATABASE_URL'),
-  },
-});
+const config: Config = {
+  previewFeatures: ['prisma-client-js'],
+  generator: {
+    client: {
+      output: './generated/prisma-client'
+    }
+  }
+}
+
+export default config
