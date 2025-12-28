@@ -2,8 +2,8 @@
   "private": true,
   "version": "2.1.3",
   "scripts": {
+    "build": "prisma generate && nitro build",
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
-    "build": "nitro build",
     "dev": "nitro dev",
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs"

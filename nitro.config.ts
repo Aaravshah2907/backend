@@ -17,7 +17,7 @@ export default defineNitroConfig({
   // KEY PRISMA + CLOUDFLARE FIX
   noExternals: false,
   externals: {
-    noExternal: [/^@prisma\/client/, /^@prisma\/engines/, /^prom-client/],
+    noExternal: [/^@prisma\/client/, /^@prisma\/engines/, /^prom-client/, 'prom-client'],
     external: [/\.prisma\/client/, /\.prisma\/client\/default/]
   },
 
@@ -26,6 +26,12 @@ export default defineNitroConfig({
     tasks: true,
     wasm: true, 
   },
+
+  prisma: {
+    client: {
+      dir: '.prisma/client'
+    }
+  }
 
   // Simplify auto-imports to avoid "Duplicated imports" warnings
   imports: {
