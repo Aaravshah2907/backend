@@ -5,27 +5,33 @@ import { version } from './server/utils/config';
 // https://nitro.unjs.io/config
 export default defineNitroConfig({
   srcDir: 'server',
-  // Required for Cloudflare Workers/Pages
   preset: 'cloudflare-module',
   compatibilityDate: '2025-03-05',
   
-  // Cloudflare-specific settings
   cloudflare: {
-    // Enables Node.js built-in APIs (required for many Prisma drivers)
     nodeCompat: true, 
   },
 
   experimental: {
     asyncContext: true,
     tasks: true,
-    // Helps with bundling WASM files used by Prisma's drivers
     wasm: true, 
   },
 
-  // Ensures Nitro doesn't try to load Prisma as an external file
+  // FIX: Explicitly tell Nitro how to find 'prisma' for auto-imports
+  imports: {
+    dirs: ['./utils/**'],
+    presets: [
+      {
+        from: '~~/server/utils/prisma', // '~~' points to the project root
+        imports: ['prisma']
+      }
+    ]
+  },
+
   alias: {
-    // If your schema output is "../generated/client", ensure the alias matches
-    "../../generated/client": "./generated/client"
+    // Standardizes the path for the bundler
+    "~~/generated/client": "./generated/client"
   },
 
   scheduledTasks: {

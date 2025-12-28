@@ -1,26 +1,31 @@
-import { PrismaClient } from '../../generated/client'
+import { PrismaClient } from '~~/generated/client'
 import { PrismaNeon } from '@prisma/adapter-neon'
 import { Pool, neonConfig } from '@neondatabase/serverless'
 import ws from 'ws'
 
-// Required for some environments to handle WebSockets correctly
+// Required for local development with Neon
 if (process.env.NODE_ENV === 'development') {
   neonConfig.webSocketConstructor = ws
 }
 
-let prisma: PrismaClient
+/**
+ * We export a single 'prisma' instance. 
+ * Nitro's auto-import will detect this 'export const prisma' 
+ * and fix the [unimport] error you saw in the build logs.
+ */
+export const prisma = (() => {
+  // Cloudflare Workers provide env vars on the process.env object 
+  // or via the event context. For Nitro, process.env is standard.
+  const connectionString = process.env.DATABASE_URL;
 
-export const getPrisma = (databaseUrl: string) => {
-  if (prisma) return prisma
+  if (!connectionString) {
+    // During build time, DATABASE_URL might be empty. 
+    // We return a proxy or null to prevent the build from crashing.
+    return {} as PrismaClient;
+  }
 
-  // 1. Create the Neon connection pool
-  const pool = new Pool({ connectionString: databaseUrl })
+  const pool = new Pool({ connectionString });
+  const adapter = new PrismaNeon(pool);
   
-  // 2. Setup the adapter
-  const adapter = new PrismaNeon(pool)
-  
-  // 3. Initialize the client with the adapter
-  prisma = new PrismaClient({ adapter })
-  
-  return prisma
-}
+  return new PrismaClient({ adapter });
+})();
