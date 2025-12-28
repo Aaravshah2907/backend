@@ -20,7 +20,7 @@ export default defineNitroConfig({
 
   // FIX: Explicitly tell Nitro how to find 'prisma' for auto-imports
   imports: {
-    dirs: ['./utils/**'],
+    dirs: ['./utils'],
     presets: [
       {
         from: '~~/server/utils/prisma', // '~~' points to the project root
