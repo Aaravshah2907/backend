@@ -5,10 +5,7 @@ import { tr } from 'zod/v4/locales';
 
 export default defineNitroConfig({
   srcDir: 'server',
-  preset: {
-    name: 'cloudflare-workers',
-    workerName: 'aaravshah2907-backend'  // ← FIXED THIS LINE
-  },
+  preset: 'cloudflare-pages',
   compatibilityDate: '2025-03-05',
   
   cloudflare: {
