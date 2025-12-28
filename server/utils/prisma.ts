@@ -1,4 +1,4 @@
-import { PrismaClient } from '#prisma' // Use the alias defined in nitro.config
+import { PrismaClient } from '#prisma-client' // Use the alias defined in nitro.config
 import { PrismaNeon } from '@prisma/adapter-neon'
 import { Pool, neonConfig } from '@neondatabase/serverless'
 import ws from 'ws'

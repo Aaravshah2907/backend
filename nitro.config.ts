@@ -19,7 +19,7 @@ export default defineNitroConfig({
 
   // FIXED ALIAS: Map a unique string to the generated folder
   alias: {
-    "#prisma": "./generated/client"
+    "#prisma-client": "./server/generated/client"
   },
 
   // Simplify auto-imports to avoid "Duplicated imports" warnings
