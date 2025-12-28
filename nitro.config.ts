@@ -1,14 +1,24 @@
 import { config } from 'dotenv';
 config();
 import { version } from './server/utils/config';
+import { tr } from 'zod/v4/locales';
 
 export default defineNitroConfig({
   srcDir: 'server',
-  preset: 'cloudflare-module',
+  preset: 'cloudflare-pages',
   compatibilityDate: '2025-03-05',
   
   cloudflare: {
+    pages: true,
+    edgeConfig: true,
     nodeCompat: true, 
+  },
+
+  // KEY PRISMA + CLOUDFLARE FIX
+  noExternals: false,
+  externals: {
+    noExternal: [/^@prisma\/client/, /^@prisma\/engines/],
+    external: [/\.prisma\/client/, /\.prisma\/client\/default/]
   },
 
   experimental: {
