@@ -2,6 +2,7 @@
   "private": true,
   "version": "2.1.3",
   "scripts": {
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
     "build": "nitro build",
     "dev": "nitro dev",
     "prepare": "nitro prepare",
