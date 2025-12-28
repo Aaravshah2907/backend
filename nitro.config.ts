@@ -31,7 +31,7 @@ export default defineNitroConfig({
     client: {
       dir: '.prisma/client'
     }
-  }
+  },
 
   // Simplify auto-imports to avoid "Duplicated imports" warnings
   imports: {
